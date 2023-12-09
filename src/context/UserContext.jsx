@@ -37,6 +37,17 @@ export function UserContextProvider(props) {
     },
   ]); //objetivos
 
+  const [ejercicio, setEjercicios] = useState(
+    {
+      id: "1",
+      texto: "Un vehículo con 8 litros de bencina recorre 144km a velocidad constante. ¿Cuántos kms podrá recorrer con solo 5 litros de bencina a igual velocidad?",
+      tokenImagen: "https://unsplash.it/602/400",
+      opciones: ["180 km","90 km","145 km","160 km"],
+      opcionCorrecta: "90 km",
+      explicacion: "Para calcular la distancia que un vehículo puede recorrer con 5 litros de bencina a velocidad constante, utilizamos una regla de tres simple. La relación entre la cantidad de bencina y la distancia recorrida con 8 litros es de 18 km/litro. Por lo tanto, con 5 litros, el vehículo puede recorrer 90 kilómetros",
+    },
+  ); //Ejercicio
+
   const login = () => {
     //request done
     setUser({
@@ -45,15 +56,6 @@ export function UserContextProvider(props) {
       correo: "john@gmail.com",
       hashContrasena: "1234",
       rol: ["estudiante"],
-    });
-  };
-
-  const carga = () => {
-    setObjetivos({
-      objetivoID: "1",
-      nombre: "Seccion 1",
-      descripcion: "Adición y la sustracción de números enteros",
-      asignaturaID: "1",
     });
   };
 
@@ -66,7 +68,7 @@ export function UserContextProvider(props) {
         login,
         logout,
         objetivos,
-        carga,
+        ejercicio,
       }}
     >
       {props.children}

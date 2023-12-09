@@ -1,12 +1,15 @@
-import BarProgress from "../../components/BarProgress"
+import { useContext, useState, useEffect } from "react";
+import { UserContext } from "../../context/UserContext";
+import FormEjercicio from '../../components/FormEjercicio'
 
 function EjercicioPage() {
-  return (
-    <div className="container h-screen w-screen mx-auto p-2 space-y-2">
-        <BarProgress total={10} number={4} />
+  const { ejercicio } = useContext(UserContext);
 
+  return (
+    <div className="h-screen w-screen">
+      <FormEjercicio ejercicio={ejercicio} />
     </div>
-  )
+  );
 }
 
-export default EjercicioPage
+export default EjercicioPage;
