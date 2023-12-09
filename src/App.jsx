@@ -19,6 +19,10 @@ import ChatbotPage from "./pages/user/ChatbotPage";
 import ConfiguracionPage from "./pages/user/ConfiguracionPage";
 import SeccionPage from "./pages/user/SeccionPage";
 import EjercicioPage from "./pages/user/EjercicioPage";
+import PhomePage from "./pages/teacher/PhomePage";
+import PasignaturaPage from "./pages/teacher/PasignaturasPage";
+import PcursoPage from "./pages/teacher/PcursoPage";
+import PalumnoPage from "./pages/teacher/PalumnoPage";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -36,16 +40,22 @@ function App() {
           <Route path="/login/selector" element={<LoginSelector />} />
           {/* Ruta protegida por usuario */}
           <Route element={<ProtectedRoute isAllowed={!!user && user.rol.includes('estudiante')} redirectTo="/" />}>
-            <Route
-              path="/estudiante/asignaturas"
-              element={<AsignaturaPage />}
-            />
+            <Route path="/estudiante/asignaturas" element={<AsignaturaPage />}/>
             <Route path="/estudiante/home" element={<Home />} />
             <Route path="/estudiante/progreso" element={<Progreso />} />
             <Route path="/estudiante/progreso/:id" element={<SeccionPage />} />
             <Route path="/estudiante/chatbot" element={<ChatbotPage />} />
             <Route path="/estudiante/configuracion" element={<ConfiguracionPage />}/>
             <Route path="/estudiante/ejercicio/:id" element={<EjercicioPage />}/>
+          </Route>
+          {/*---------*/}
+
+          {/* Ruta protegida por profesor */}
+          <Route element={<ProtectedRoute isAllowed={!!user && user.rol.includes('profesor')} redirectTo="/" />}>
+            <Route path="/profesor/asignaturas" element={<PasignaturaPage />} />
+            <Route path="/profesor/home" element={<PhomePage />} />
+            <Route path="/profesor/curso/:id" element={<PcursoPage />} />
+            <Route path="/profesor/curso/alumno/:id" element={<PalumnoPage />}/>
           </Route>
           {/*---------*/}
           <Route path="*" element={<NotFoundPage />} />

@@ -8,7 +8,7 @@ export default {
     extend: {
       colors: {
         'resalte-de-texto': '#EB5952',
-        'docente': "rgb(255 84 71)",
+        'docente': "rgb(255 88 75)",
         'texto-grande-negro': '#2A2F35',
         'texto-pequeno-negro': '#707070',
         'logo-fondo': 'rgb(78 90 255)',

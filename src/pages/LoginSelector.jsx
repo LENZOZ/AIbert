@@ -14,7 +14,7 @@ function LoginSelector() {
       </div>
       <div className="flex justify-center">
         <CardIcon title="Alumno" color="bg-iconos"  to="/estudiante/asignaturas" ico={<IoPerson />}  />
-        <CardIcon title="Docente" color="bg-docente"  to="" ico={<MdPersonPin />}/>
+        <CardIcon title="Docente" color="bg-docente"  to="/profesor/asignaturas" ico={<MdPersonPin />}/>
       </div>
     </div>
   );

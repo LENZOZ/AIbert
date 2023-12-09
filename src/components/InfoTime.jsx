@@ -3,7 +3,7 @@ import { MdLightMode } from "react-icons/md";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
-function InfoTime() {
+function InfoTime({color="bg-logo-fondo"}) {
   let fecha = new Date().toLocaleDateString();
   let time = new Date().toLocaleTimeString();
 
@@ -19,7 +19,7 @@ function InfoTime() {
   const { user } = useContext(UserContext);
 
   return (
-    <div className="grid grid-cols-2 w-full bg-logo-fondo rounded-lg h-fit p-2 my-auto font-poppins font-bold text-sm text-white uppercase">
+    <div className={"grid grid-cols-2 w-full rounded-lg h-fit p-2 my-auto font-poppins font-bold text-sm text-white uppercase " + color}>
       <div className="space-y-1 my-auto">
         <h1>BIENVENIDO(A)!</h1>
         <h2 className="font-normal">{user.nombre}</h2>

@@ -5,8 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import Overlay from "./Overlay";
 import { useState, useEffect } from "react";
 
-
-function EjercicioPage({ ejercicio}) {
+function EjercicioPage({ ejercicio, contador }) {
   const [error, setError] = useState("");
   const [check, setCheck] = useState(null);
   const [estado, setEstado] = useState(false);
@@ -20,7 +19,7 @@ function EjercicioPage({ ejercicio}) {
     }
     Comprobar();
     HandleDisplay();
-    
+
     console.log("La respuesta enviada es: " + check);
   };
 
@@ -34,7 +33,7 @@ function EjercicioPage({ ejercicio}) {
   };
 
   const Comprobar = () => {
-    check == ejercicio.opcionCorrecta ? setEstado(true) : setEstado(false)
+    check == ejercicio.opcionCorrecta ? setEstado(true) : setEstado(false);
   };
 
   return (
@@ -48,9 +47,16 @@ function EjercicioPage({ ejercicio}) {
         display={display}
         handleDisplay={HandleDisplay}
       />
-      <Link className="pt-5 pl-5 w-fit h-fit" to="/estudiante/home">
-        <IoMdClose size={55} className="fill-sombra-boton" />
-      </Link>
+      <div className="flex justify-between">
+        <Link className="pt-5 pl-5 w-fit h-fit" to="/estudiante/home">
+          <IoMdClose size={55} className="fill-sombra-boton" />
+        </Link>
+        <div className="h-fit w-fit aspect-auto p-3 m-6 bg-sombra-boton rounded-full">
+          <h1 className="h-full min-w-[28px] w-full text-logo-resalte font-poppins font-semibold text-lg text-center">
+            {contador}
+          </h1>
+        </div>
+      </div>
 
       <div className="container sm:w-[80%] w-[70%] grid grid-cols-1 p-2 space-y-2 place-content-center mx-auto">
         <img
