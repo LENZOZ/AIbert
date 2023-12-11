@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 
 function PhomePage() {
-  const { profesor, cursos } = useContext(UserContext);
+  const { cursos } = useContext(UserContext);
 
   return (
     <div className="flex bg-fondo saturate-[110%]">

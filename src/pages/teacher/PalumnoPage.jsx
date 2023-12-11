@@ -4,13 +4,16 @@ import PSideBar from "../../components/PSideBar";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-
+import { FaArrowLeft } from "react-icons/fa6";
+import BarTitle from "../../components/BarTitle";
+import GraphicBar from "../../components/GraphicBar";
 
 function PalumnoPage() {
-  const params = useParams();
-  const { estudiantes } = useContext(UserContext);
+  const params = useParams(); //Recupero el id mandado por el link con params
+  const { estudiantes } = useContext(UserContext); //Recupero la lista de estudiantes del curso por el contexto
 
   const estudiante = estudiantes.find((obj) => {
+    //busco el estudiante asociado al id y lo recurpero
     return obj.estudianteID === params.id;
   });
 
@@ -19,25 +22,30 @@ function PalumnoPage() {
       <PSideBar />
       <div className="w-full h-full p-2 space-y-2">
         <InfoTime color="bg-docente" />
+        <BarTitle to="/profesor/home" title="Alumno" />
         <div
           className={
-            "flex w-full rounded-lg h-fit p-2 m-auto place-content-center font-poppins font-bold text-4xl text-white uppercase bg-docente"
+            "grid grid-cols-1 w-full rounded-lg h-fit m-auto place-content-center font-poppins bg-docente"
           }
         >
           <div className="my-auto">
-            <h1>{estudiante.estudianteID}</h1>
-            <p>{estudiante.nombre}</p>
+            <h1 className="font-bold text-sm text-white pl-3 p-2">Detalles de usuario</h1>
+          </div>
+          <div className="bg-white text-black font-normal text-sm space-y-2 pl-3">
+            <p className="text-lg font-bold pt-2">{estudiante.nombre}</p>
+            <p className="font-bold">Dirección de correo</p>
             <p>{estudiante.correo}</p>
-            <p>{estudiante.rut}</p>
+            <p className="font-bold">Última conexion</p>
             <p>{estudiante.ultimoacceso}</p>
+            <p className="font-bold">Fecha de registro</p>
             <p>{estudiante.fecharegistro}</p>
+            <p className="font-bold">Objetivo de aprendizaje</p>
+            <p className="pb-6">Falta averiguar de donde obtenerlo</p>
+            {/* <p className="font-bold">Progreso (Grafico)</p> */}
+            <GraphicBar />
           </div>
         </div>
-        <div className="relative rounded-lg overflow-auto">
-          <div className="shadow-sm rounded-lg overflow-hidden">
-            
-          </div>
-        </div>
+
       </div>
     </div>
   );

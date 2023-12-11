@@ -4,6 +4,7 @@ export const UserContext = createContext();
 
 export function UserContextProvider(props) {
   const [user, setUser] = useState(null); //usuario
+  //Usuario actual que inicio sesion
 
   const [profesor, setProfesor] = useState(
     {
@@ -13,7 +14,7 @@ export function UserContextProvider(props) {
       asignaturas: ["matematicas"],
       cursoID: ["Synergy","Dinámico","Fusiona","Cohesión"]
     }
-  ); //profesor
+  ); //Profesor actual que inicio sesion
 
   const [estudiantes, setEstudiantes] = useState(
     [{
@@ -96,8 +97,7 @@ export function UserContextProvider(props) {
       ultimoacceso: "07/07/2024",
       fecharegistro: "08/08/2009",
     },
-  ]); //estudiantes
-
+  ]); //Lista de estudiantes asociados a un curso
 
   const [objetivos, setObjetivos] = useState([ //Objetivos
     {
@@ -129,7 +129,7 @@ export function UserContextProvider(props) {
       url: "https://unsplash.it/600/400",
       asignaturaID: "1",
     },
-  ]); //objetivos
+  ]); //Lista de objetivos asociados al alumno
 
   const [ejercicio, setEjercicios] = useState(
     {
@@ -140,7 +140,7 @@ export function UserContextProvider(props) {
       opcionCorrecta: "90 km",
       explicacion: "Para calcular la distancia que un vehículo puede recorrer con 5 litros de bencina a velocidad constante, utilizamos una regla de tres simple. La relación entre la cantidad de bencina y la distancia recorrida con 8 litros es de 18 km/litro. Por lo tanto, con 5 litros, el vehículo puede recorrer 90 kilómetros",
     },
-  ); //Ejercicio
+  ); //El ejercicio actual cargado
 
   const [cursos, setCursos] = useState([
     {
@@ -155,25 +155,32 @@ export function UserContextProvider(props) {
       nombre: "Dinámico",
       nivel: "8°grado",
       establecimientoID: "1012",
-      alumnos: ["Carlos", "Ana", "Luis", "María", "Diego", "Laura", "Javier", "Isabel", "Sara", "Pedro"],
+      alumnos: ["1","2","3","4","5","6","7","8","9","10"],
       asignaturas: ["matematicas", "lenguaje"]
     },{
       cursoID: "3",
       nombre: "Fusiona",
       nivel: "8°grado",
       establecimientoID: "1012",
-      alumnos: ["Carlos", "Ana", "Luis", "María", "Diego", "Laura", "Javier", "Isabel", "Sara", "Pedro"],
+      alumnos: ["1","2","3","4","5","6","7","8","9","10"],
       asignaturas: ["matematicas", "lenguaje"]
     },{
       cursoID: "4",
       nombre: "Cohesión",
       nivel: "1°medio",
       establecimientoID: "1012",
-      alumnos: ["Carlos", "Ana", "Luis", "María", "Diego", "Laura", "Javier", "Isabel", "Sara", "Pedro"],
+      alumnos: ["1","2","3","4","5","6","7","8","9","10"],
       asignaturas: ["matematicas", "lenguaje"]
     },
-  ]); //Cursos (estan solo cargados en local, desconozco como se van a mandar desde la bd)
+  ]); //Lista de cursos asociados al profesor (estan solo cargados en local, desconozco como se van a mandar desde la bd)
 
+  const [cursoActual, setCursoActual] = useState(null)
+
+  const cargarcurso = (e) => {
+    setCursoActual(e)
+  }
+
+  const limpiarcurso = () => setUser(null)
 
 
   const login = () => {
@@ -199,6 +206,9 @@ export function UserContextProvider(props) {
         ejercicio,
         profesor,
         cursos,
+        cursoActual,
+        cargarcurso,
+        limpiarcurso,
         estudiantes,
       }}
     >
