@@ -23,6 +23,7 @@ import PhomePage from "./pages/teacher/PhomePage";
 import PasignaturaPage from "./pages/teacher/PasignaturasPage";
 import PcursoPage from "./pages/teacher/PcursoPage";
 import PalumnoPage from "./pages/teacher/PalumnoPage";
+import PconfiguracionPage from "./pages/teacher/PconfiguracionPage";
 
 function App() {
   const { user } = useContext(UserContext);
@@ -54,6 +55,7 @@ function App() {
           <Route element={<ProtectedRoute isAllowed={!!user && user.rol.includes('profesor')} redirectTo="/" />}>
             <Route path="/profesor/asignaturas" element={<PasignaturaPage />} />
             <Route path="/profesor/home" element={<PhomePage />} />
+            <Route path="/profesor/configuracion" element={<PconfiguracionPage />} />
             <Route path="/profesor/curso/:id" element={<PcursoPage />} />
             <Route path="/profesor/curso/alumno/:id" element={<PalumnoPage />}/>
           </Route>
