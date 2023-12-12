@@ -4,9 +4,9 @@ import PSideBar from "../../components/PSideBar";
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
-import { FaArrowLeft } from "react-icons/fa6";
 import BarTitle from "../../components/BarTitle";
 import GraphicBar from "../../components/GraphicBar";
+import GraphicArea from "../../components/GraphicArea";
 
 function PalumnoPage() {
   const params = useParams(); //Recupero el id mandado por el link con params
@@ -42,7 +42,9 @@ function PalumnoPage() {
             <p className="font-bold">Objetivo de aprendizaje</p>
             <p className="pb-6">Falta averiguar de donde obtenerlo</p>
             {/* <p className="font-bold">Progreso (Grafico)</p> */}
+
             <GraphicBar />
+            <GraphicArea />
           </div>
         </div>
 

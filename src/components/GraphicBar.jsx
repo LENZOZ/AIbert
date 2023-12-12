@@ -53,7 +53,7 @@ const GraphicBar = () => {
   function onChartReady(echarts) {
     timer = setTimeout(function() {
       echarts.hideLoading();
-    }, 200);
+    }, 1000);
   }
 
   return <ReactECharts
@@ -61,7 +61,7 @@ const GraphicBar = () => {
     style={{ height: 400 }}
     onChartReady={onChartReady}
     loadingOption={loadingOption}
-    showLoading={false}
+    showLoading={true}
   />;
 };
 

@@ -27,7 +27,7 @@ function TableAlumnos({curso}) {
                   return (
                     <tr key={i}>
                       <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
-                        {estudiante}
+                        {estudiante.nombre}
                       </td>
                       <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
                         OB.2
@@ -39,7 +39,7 @@ function TableAlumnos({curso}) {
                       <td className="border-b border-slate-100 dark:border-slate-700 p-4 pl-8 text-slate-500 dark:text-slate-400">
                         <Link
                           className="h-fit w-fit"
-                          to={"/profesor/curso/alumno/" + estudiante}
+                          to={"/profesor/curso/alumno/" + estudiante.estudianteID}
                         >
                           <FaCircleArrowRight
                             className="fill-logo-resalte"
