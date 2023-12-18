@@ -16,7 +16,7 @@ function Home() {
       <div className="w-full h-full p-2 space-y-2">
         <InfoTime />
         <div className="w-full grid grid-cols-1 space-y-2 place-content-center">
-          <img className="mx-auto w-[240px] h-[240px]" src={profesor} />
+          <img className="mx-auto w-[340px] h-[340px] object-cover" src={profesor} />
           <div className="mx-auto w-[120px] h-[45px]">
             <ButtonS title="Entrenar" to={"/estudiante/ejercicio/" + user.usuarioId} />
           </div>
