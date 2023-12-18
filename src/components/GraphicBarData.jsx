@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
 
-const GraphicBar = ({title, data}) => {
+const GraphicBarData = ({title, data}) => {
   const option = {
     title: {
-      text: 'Progreso'
+      text: title
     },
     tooltip: {},
     legend: {
-      data: ['Objetivo de aprendizaje 1']
+      data: title
     },
     radar: {
       // shape: 'circle',
@@ -29,8 +29,8 @@ const GraphicBar = ({title, data}) => {
       // areaStyle: {normal: {}},
       data : [
         {
-          value : [70, 100, 80, 50, 45, 90, 20, 90],
-          name : 'Objetivo de aprendizaje 1'
+          value : data,
+          name : title
         }
       ]
     }]
@@ -65,4 +65,4 @@ const GraphicBar = ({title, data}) => {
   />;
 };
 
-export default GraphicBar;
+export default GraphicBarData;

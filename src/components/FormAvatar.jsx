@@ -5,10 +5,6 @@ function FormAvatar() {
     <div>
       <form className="space-y-3" /*onSubmit={}*/>
         <p>Seleccionar Avatar</p>
-            
-
-
-
         <div className="my-auto w-[120px] h-[45px]">
           <button className="container flex mx-auto w-full h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl shadow-lg">
             <h1 className="text-white font-poppins text-sm font-semibold uppercase text-center mx-auto my-auto">

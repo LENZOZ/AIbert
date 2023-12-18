@@ -102,5 +102,4 @@ function EjercicioPage({ ejercicio, contador }) {
     </form>
   );
 }
-
 export default EjercicioPage;

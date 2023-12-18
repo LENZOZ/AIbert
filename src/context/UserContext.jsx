@@ -490,15 +490,6 @@ export function UserContextProvider(props) {
     },
   ]); //Lista de cursos asociados al profesor (estan solo cargados en local, desconozco como se van a mandar desde la bd)
 
-  const [cursoActual, setCursoActual] = useState(null)
-
-  const cargarcurso = (e) => {
-    setCursoActual(e)
-  }
-
-  const limpiarcurso = () => setUser(null)
-
-
   const login = () => {
     //request done
     setUser({
@@ -522,9 +513,6 @@ export function UserContextProvider(props) {
         ejercicio,
         profesor,
         cursos,
-        cursoActual,
-        cargarcurso,
-        limpiarcurso,
         estudiantes,
       }}
     >
@@ -532,3 +520,4 @@ export function UserContextProvider(props) {
     </UserContext.Provider>
   );
 }
+

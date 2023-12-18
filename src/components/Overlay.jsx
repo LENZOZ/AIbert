@@ -2,7 +2,6 @@ import { FaCheckCircle } from "react-icons/fa";
 import { IoIosCloseCircle } from "react-icons/io";
 
 import ButtonH from "../components/ButtonHandle";
-import { useState } from "react";
 
 function Overlay({ estado, ejercicio, display, handleDisplay }) {
   return (
