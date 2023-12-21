@@ -9,30 +9,6 @@ function Chat() {
           <ChatMessage message="Hola! todo bien!" user={false} />
           <ChatMessage message="Hola como va todo?" user={true} />
           <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
-          <ChatMessage message="Hola como va todo?" user={true} />
-          <ChatMessage message="Hola! todo bien!" user={false} />
         </div>
       </div>
     </div>

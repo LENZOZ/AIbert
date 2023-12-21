@@ -37,9 +37,11 @@ function PalumnoPage() {
             <p>{estudiante.correo}</p>
             <p className="font-bold">Última conexion</p>
             <p>{estudiante.ultimoacceso}</p>
+            <p className="font-bold">Asignatura</p>
+            <p>Matemáticas</p>
             <p className="font-bold">Fecha de registro</p>
             <p>{estudiante.fecharegistro}</p>
-            <p className="font-bold">Objetivo de aprendizaje</p>
+            <p className="font-bold">Objetivo de aprendizaje actual</p>
             <p className="pb-6">Falta averiguar de donde obtenerlo</p>
             {/* <p className="font-bold">Progreso (Grafico)</p> */}
 

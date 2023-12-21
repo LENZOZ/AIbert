@@ -8,19 +8,19 @@ const GraphicBar = ({title, data}) => {
     },
     tooltip: {},
     legend: {
-      data: ['Objetivo de aprendizaje 1']
+      data: ['Diagnostico','Nivel Actual']
     },
     radar: {
       // shape: 'circle',
       indicator: [
-          { name: 'Indicador de evaluacion 1', max: 100},
-          { name: 'Indicador de evaluacion 2', max: 100},
-          { name: 'Indicador de evaluacion 3', max: 100},
-          { name: 'Indicador de evaluacion 4', max: 100},
-          { name: 'Indicador de evaluacion 5', max: 100},
-          { name: 'Indicador de evaluacion 6', max: 100},
-          { name: 'Indicador de evaluacion 7', max: 100},
-          { name: 'Indicador de evaluacion 8', max: 100}
+          { name: 'Objetivo de aprendizaje 1', max: 100},
+          { name: 'Objetivo de aprendizaje 2', max: 100},
+          { name: 'Objetivo de aprendizaje 3', max: 100},
+          { name: 'Objetivo de aprendizaje 4', max: 100},
+          { name: 'Objetivo de aprendizaje 5', max: 100},
+          { name: 'Objetivo de aprendizaje 6', max: 100},
+          { name: 'Objetivo de aprendizaje 7', max: 100},
+          { name: 'Objetivo de aprendizaje 8', max: 100}
       ]
     },
     series: [{
@@ -29,8 +29,11 @@ const GraphicBar = ({title, data}) => {
       // areaStyle: {normal: {}},
       data : [
         {
+          value : [60, 80, 50, 40, 25, 40, 10, 20],
+          name : 'Diagnostico'
+        },{
           value : [70, 100, 80, 50, 45, 90, 20, 90],
-          name : 'Objetivo de aprendizaje 1'
+          name : 'Nivel Actual'
         }
       ]
     }]
@@ -46,7 +49,7 @@ const GraphicBar = ({title, data}) => {
     text: 'Cargando...',
     color: '#4413c2',
     textColor: '#270240',
-    maskColor: 'rgba(194, 88, 86, 0.3)',
+    maskColor: 'rgba(79, 89, 255, 0.3)',
     zlevel: 0
   };
 
