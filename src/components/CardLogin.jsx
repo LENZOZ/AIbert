@@ -1,15 +1,28 @@
-import ButtonFace from "./ButtonFace";
-import ButtonGoogle from './ButtonGoogle'
-import ButtonS from "./ButtonS";
-
-import {useContext} from 'react'
-import {UserContext} from '../context/UserContext'
-
+import React, { useState, useContext } from 'react';
+import GoogleSignIn from './GoogleSignIn';
+import UserRegistrationForm from './UserRegistrationForm';
+import { UserContext } from '../context/UserContext';
 
 function CardLogin() {
+  const { user, login, logout } = useContext(UserContext);
+  const [newUserInfo, setNewUserInfo] = useState(null);
 
-  const {user, login, logout} = useContext(UserContext)
-  //console.log(user)
+  const handleNewUser = (userInfo) => {
+    console.log("funcion callback")
+    setNewUserInfo(userInfo); // Actualiza el estado con la información del nuevo usuario
+  };
+  if(newUserInfo){
+    console.log("newUserInfo correcto");
+  }
+  if(user){
+    console.log("user correcto");
+  }
+
+  if (user && newUserInfo) {
+    console.log("se procede a mostrar el formulario user registration form")
+    // Mostrar formulario de registro para nuevos usuarios
+    return <UserRegistrationForm userInfo={newUserInfo} />;
+  }
 
   return (
     <div className="border-solid p-5 m-3 text-center w-[350px] bg-white inline-block">
@@ -20,33 +33,29 @@ function CardLogin() {
           className="w-full h-[50px] bg-neutral-200 rounded-lg pl-4"
           type="email"
           placeholder="Correo"
-        ></input>
+        />
         <input
           className="w-full h-[50px] bg-neutral-200 rounded-lg pl-4"
           type="password"
           placeholder="Contraseña"
-        ></input>
+        />
         <div className="w-full h-[50px]">
-          <ButtonS to="/login/selector" title="ingresar" />
+          {/* Suponiendo que ButtonS es un componente para un botón */}
+          {/* Reemplaza con la lógica adecuada para el inicio de sesión */}
+          <button type="button" onClick={login}>Ingresar</button>
         </div>
         <hr className="border-sombra-boton border-b-1 shadow-xl" />
-        <div className="w-full flex space-x-2 pt-3">
-          <div className="w-1/2 h-[50px]">
-            <ButtonFace to="https://www.facebook.com/" title="Facebook" />
-          </div>
-          <div className="w-1/2 h-[50px]">
-            <ButtonGoogle to="https://www.google.com/" title="Google" />
-          </div>
-        </div>
-        <p className="font-poppins font-light text-gray-400 text-[10px]">Al registrarte en AIBert, aceptas nuestros Términos y Políticas de privacidad.</p>
+      <GoogleSignIn onNewUser={handleNewUser} />
+        <p className="font-poppins font-light text-gray-400 text-[10px]">
+          Al registrarte en AIBert, aceptas nuestros Términos y Políticas de privacidad.
+        </p>
       </form>
 
       {user ? (
-        /*Existe?*/ <button onClick={logout}>Logout</button>
+        <button onClick={logout}>Logout</button>
       ) : (
         <button onClick={login}>Login</button>
       )}
-      
     </div>
   );
 }

@@ -1,7 +1,6 @@
-import { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ProtectedRoute } from "./components/ProtectedRoute";
-import { UserContext } from "./context/UserContext";
+import { UserContextProvider } from "./context/UserContext";
 
 import HomePage from "./pages/home/HomePage";
 import AboutPage from "./pages/home/AboutPage";
@@ -11,25 +10,11 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import LoginSelector from "./pages/LoginSelector";
-
-import Home from "./pages/user/Home";
-import AsignaturaPage from "./pages/user/AsignaturaPage";
-import Progreso from "./pages/user/Progreso";
-import ChatbotPage from "./pages/user/ChatbotPage";
-import ConfiguracionPage from "./pages/user/ConfiguracionPage";
-import SeccionPage from "./pages/user/SeccionPage";
-import EjercicioPage from "./pages/user/EjercicioPage";
-import PhomePage from "./pages/teacher/PhomePage";
-import PasignaturaPage from "./pages/teacher/PasignaturasPage";
-import PcursoPage from "./pages/teacher/PcursoPage";
-import PalumnoPage from "./pages/teacher/PalumnoPage";
-import PconfiguracionPage from "./pages/teacher/PconfiguracionPage";
+import ProtectedRoutes from "./components/ProtectedRoutes"; // Importa el nuevo componente
 
 function App() {
-  const { user } = useContext(UserContext);
-
   return (
-    <>
+    <UserContextProvider>
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage />} />
@@ -39,31 +24,10 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/login/selector" element={<LoginSelector />} />
-          {/* Ruta protegida por usuario */}
-          <Route element={<ProtectedRoute isAllowed={!!user && user.rol.includes('estudiante')} redirectTo="/" />}>
-            <Route path="/estudiante/asignaturas" element={<AsignaturaPage />}/>
-            <Route path="/estudiante/home" element={<Home />} />
-            <Route path="/estudiante/progreso" element={<Progreso />} />
-            <Route path="/estudiante/progreso/:id" element={<SeccionPage />} />
-            <Route path="/estudiante/chatbot" element={<ChatbotPage />} />
-            <Route path="/estudiante/configuracion" element={<ConfiguracionPage />}/>
-            <Route path="/estudiante/ejercicio/:id" element={<EjercicioPage />}/>
-          </Route>
-          {/*---------*/}
-
-          {/* Ruta protegida por profesor */}
-          <Route element={<ProtectedRoute isAllowed={!!user && user.rol.includes('profesor')} redirectTo="/" />}>
-            <Route path="/profesor/asignaturas" element={<PasignaturaPage />} />
-            <Route path="/profesor/home" element={<PhomePage />} />
-            <Route path="/profesor/configuracion" element={<PconfiguracionPage />} />
-            <Route path="/profesor/curso/:id" element={<PcursoPage />} />
-            <Route path="/profesor/curso/alumno/:id" element={<PalumnoPage />}/>
-          </Route>
-          {/*---------*/}
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={<ProtectedRoutes />} /> {/* Rutas protegidas */}
         </Routes>
       </BrowserRouter>
-    </>
+    </UserContextProvider>
   );
 }
 
