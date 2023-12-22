@@ -6,6 +6,7 @@ export const UserContext = createContext();
 
 export function UserContextProvider(props) {
   const [user, setUser] = useState(null);
+  const logout = () => setUser(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
@@ -28,6 +29,7 @@ export function UserContextProvider(props) {
     <UserContext.Provider
       value={{
         user,
+        logout,
         // Incluye aquí otras variables de estado y funciones
         // ...
       }}
