@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 
-function ButtonS({ to = "/", title = "boton" }) {
+function ButtonS({ to = "/registro", title = "boton" }) {
   return (
     <NavLink
       to={to}

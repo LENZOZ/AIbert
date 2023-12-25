@@ -7,10 +7,10 @@ import AboutPage from "./pages/home/AboutPage";
 import InfoPage from "./pages/home/InfoPage";
 import PricePage from "./pages/home/PricePage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import LoginSelector from "./pages/LoginSelector";
 import ProtectedRoutes from "./components/ProtectedRoutes"; // Importa el nuevo componente
+import EmailRegistrationForm from "./components/EmailRegistrationForm";
 
 function App() {
   return (
@@ -22,8 +22,8 @@ function App() {
           <Route path="/info" element={<InfoPage />} />
           <Route path="/price" element={<PricePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
           <Route path="/login/selector" element={<LoginSelector />} />
+          <Route path="/registro" element={<EmailRegistrationForm/>}/>
           <Route path="*" element={<ProtectedRoutes />} /> {/* Rutas protegidas */}
         </Routes>
       </BrowserRouter>

@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import GoogleSignIn from './GoogleSignIn';
 import UserRegistrationForm from './UserRegistrationForm';
 import { UserContext } from '../context/UserContext';
@@ -6,56 +7,62 @@ import { UserContext } from '../context/UserContext';
 function CardLogin() {
   const { user, login, logout } = useContext(UserContext);
   const [newUserInfo, setNewUserInfo] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleNewUser = (userInfo) => {
-    console.log("funcion callback")
-    setNewUserInfo(userInfo); // Actualiza el estado con la información del nuevo usuario
+    setNewUserInfo(userInfo);
   };
-  if(newUserInfo){
-    console.log("newUserInfo correcto");
-  }
-  if(user){
-    console.log("user correcto");
-  }
 
-  if (user && newUserInfo) {
-    console.log("se procede a mostrar el formulario user registration form")
-    // Mostrar formulario de registro para nuevos usuarios
+  const handleLogin = async () => {
+    try{
+    // Aquí llamamos a la función de inicio de sesión de UserContext
+    await login(email, password);
+    navigate('/estudiante/home');
+  } catch (error) {
+    let message = 'Ocurrió un error al iniciar sesión.';
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        message = 'Correo electrónico o contraseña incorrectos.';
+      }else if (error.code === 'auth/invalid-credential') {
+        message = 'Las credenciales proporcionadas son inválidas.';
+      }
+      setErrorMessage(message); // Establece el mensaje de error
+  }
+};
+
+  if (newUserInfo) {
     return <UserRegistrationForm userInfo={newUserInfo} />;
   }
 
   return (
     <div className="border-solid p-5 m-3 text-center w-[350px] bg-white inline-block">
       <h2 className="py-3 font-poppins font-bold">Ingresar</h2>
-
-      <form className="space-y-3">
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+      <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
         <input
           className="w-full h-[50px] bg-neutral-200 rounded-lg pl-4"
           type="email"
           placeholder="Correo"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <input
           className="w-full h-[50px] bg-neutral-200 rounded-lg pl-4"
           type="password"
           placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <div className="w-full h-[50px]">
-          {/* Suponiendo que ButtonS es un componente para un botón */}
-          {/* Reemplaza con la lógica adecuada para el inicio de sesión */}
-          <button type="button" onClick={login}>Ingresar</button>
+          <button type="button" onClick={handleLogin}>Ingresar</button>
         </div>
-        <hr className="border-sombra-boton border-b-1 shadow-xl" />
-      <GoogleSignIn onNewUser={handleNewUser} />
+        <GoogleSignIn onNewUser={handleNewUser} />
         <p className="font-poppins font-light text-gray-400 text-[10px]">
           Al registrarte en AIBert, aceptas nuestros Términos y Políticas de privacidad.
         </p>
       </form>
-
-      {user ? (
-        <button onClick={logout}>Logout</button>
-      ) : (
-        <button onClick={login}>Login</button>
-      )}
     </div>
   );
 }
