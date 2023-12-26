@@ -1,13 +1,15 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth, firestore } from "../components/firebaseConfig";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc, collection, getDocs} from "firebase/firestore";
+import { doc, getDoc, collection, getDocs, query, where} from "firebase/firestore";
 
 export const UserContext = createContext();
 
 export function UserContextProvider(props) {
   const [user, setUser] = useState(null);
   const [objetivos, setObjetivos] = useState([]);
+  const [cursos, setCursos] = useState([]);
+
   
   // Función para obtener objetivos de aprendizaje
   const obtenerObjetivos = async () => {
@@ -36,19 +38,12 @@ export function UserContextProvider(props) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
-
-      // Consulta a Firestore para obtener información adicional del usuario
       const userDocRef = doc(firestore, "Usuarios", uid);
       const userDoc = await getDoc(userDocRef);
 
       if (userDoc.exists()) {
-        const userData = {
-          uid, // incluye el UID
-          ...userDoc.data(), // Toda la información adicional del usuario
-        };
-
-        // Actualiza el estado del usuario con los datos de Firestore
-        setUser(userData);
+        console.log("usuario cargado")
+        setUser({ uid, ...userDoc.data() });
       } else {
         console.error("No se encontraron datos del usuario en Firestore");
       }
@@ -57,6 +52,19 @@ export function UserContextProvider(props) {
       throw error;
     }
   };
+
+  const cargarCursosProfesor = async (uid) => {
+    try {
+      const cursosColRef = collection(firestore, `Usuarios/${uid}/Cursos`);
+      const snapshot = await getDocs(cursosColRef);
+      const cursosTemp = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setCursos(cursosTemp); // Actualiza el estado de cursos
+      console.log("cursos cargados")
+    } catch (error) {
+      console.error("Error al obtener cursos:", error);
+    }
+  };
+  
 
   const logout = async () => {
     try {
@@ -84,11 +92,18 @@ export function UserContextProvider(props) {
     return () => unsubscribe();
   }, []);
 
+  useEffect(() => {
+    if (user && user.rol === "profesor") {
+      cargarCursosProfesor(user.uid);
+    }
+  }, [user]);
+
   return (
     <UserContext.Provider
       value={{
         user,
         objetivos,
+        cursos,
         login,
         logout,
         updateUser,

@@ -20,7 +20,12 @@ function CardLogin() {
     try{
     // Aquí llamamos a la función de inicio de sesión de UserContext
     await login(email, password);
-    navigate('/estudiante/home');
+    // Verificar el rol del usuario para redireccionar adecuadamente
+    if (user && user.rol === 'profesor') {
+      navigate('/profesor/home');
+    } else {
+      navigate('/estudiante/home');
+    }
   } catch (error) {
     let message = 'Ocurrió un error al iniciar sesión.';
       if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {

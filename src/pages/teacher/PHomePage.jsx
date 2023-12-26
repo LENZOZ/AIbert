@@ -30,9 +30,9 @@ function PhomePage() {
               return (
                 <div key={i}>
                   <CardIcon
-                    title={curso.nombre + " " + curso.nivel}
+                    title={curso.nombre}
                     color="bg-logo-fondo"
-                    to={"/profesor/curso/" + curso.cursoID}
+                    to={"/profesor/curso/" + curso.id}
                     ico={<FaAddressBook />}
                   />
                 </div>
