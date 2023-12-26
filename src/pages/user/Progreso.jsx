@@ -23,7 +23,7 @@ function Progreso() {
             <div key={i}>
               <Secciones
                 title={objetivo.nombre}
-                id={objetivo.objetivoID}
+                id={objetivo.id}
                 description={objetivo.descripcion}
                 img={objetivo.url}
               />

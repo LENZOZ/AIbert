@@ -1,13 +1,37 @@
 import React, { createContext, useState, useEffect } from "react";
 import { auth, firestore } from "../components/firebaseConfig";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs} from "firebase/firestore";
 
 export const UserContext = createContext();
 
 export function UserContextProvider(props) {
   const [user, setUser] = useState(null);
+  const [objetivos, setObjetivos] = useState([]);
   
+  // Función para obtener objetivos de aprendizaje
+  const obtenerObjetivos = async () => {
+    try {
+      const objetivosColRef = collection(firestore, "ObjetivoAprendizaje");
+      const snapshot = await getDocs(objetivosColRef);
+      const objetivosTemp = [];
+      
+      for (const doc of snapshot.docs) {
+        const data = doc.data();
+        const subcolecciones = {}; // Aquí se almacenan las subcolecciones
+
+        // Aquí se agrega la lógica para obtener subcolecciones si es necesario
+        // ...
+
+        objetivosTemp.push({ id: doc.id, ...data, subcolecciones });
+      }
+
+      setObjetivos(objetivosTemp);
+    } catch (error) {
+      console.error("Error al obtener objetivos:", error);
+    }
+  };
+
   const login = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -19,7 +43,7 @@ export function UserContextProvider(props) {
 
       if (userDoc.exists()) {
         const userData = {
-          uid, // Asegúrate de incluir el UID
+          uid, // incluye el UID
           ...userDoc.data(), // Toda la información adicional del usuario
         };
 
@@ -48,14 +72,15 @@ export function UserContextProvider(props) {
   };
 
   useEffect(() => {
+    obtenerObjetivos(); // Obtener objetivos al iniciar el contexto
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
         setUser(firebaseUser);
       } else {
         setUser(null);
       }
-    });
 
+    });
     return () => unsubscribe();
   }, []);
 
@@ -63,6 +88,7 @@ export function UserContextProvider(props) {
     <UserContext.Provider
       value={{
         user,
+        objetivos,
         login,
         logout,
         updateUser,
