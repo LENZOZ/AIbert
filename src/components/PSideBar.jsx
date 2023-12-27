@@ -40,7 +40,7 @@ function PsideBar() {
           <li>
             <ButtonIcon
               title="Siguenos"
-              to="https://cat-bounce.com"
+              to="https://www.instagram.com/aibert_math/"
               target="_blank"
               icon={<MdStars />}
               color="text-docente"
