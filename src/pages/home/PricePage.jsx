@@ -14,7 +14,7 @@ function PricePage() {
             <h1 className="font-poppins text-4xl font-bold text-center text-white pb-5">
               Planes
             </h1>
-            <p className="text-white">
+            <p className="font-poppins text-white">
               Estamos encantados de ofrecerte tres emocionantes planes de
               suscripción diseñados para adaptarse a tus necesidades y llevar la
               ejercitación matemática personalizada a un nuevo nivel.
@@ -24,14 +24,14 @@ function PricePage() {
               title="Plan Invidual"
               description="$9.990/mes"
               img={precio1}
-              to="https://www.youtube.com/watch?v=cW8E4iTgLN0"
+              to="https://youtu.be/_e9yMqmXWo0?si=ppO66RKp5wUfPnla"
               target="_blank"
             />
             <Card
               title="Plan Familiar"
               description="$24.990/mes"
               img={precio2}
-              to="https://www.youtube.com/watch?v=2v2eM3sv3ig"
+              to="https://youtu.be/JhDIILjlhBQ?si=vgJX_mTiEjf36HDp"
             />
             <Card
               title="Plan Establecimiento"

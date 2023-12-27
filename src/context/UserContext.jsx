@@ -9,6 +9,26 @@ export function UserContextProvider(props) {
   const [user, setUser] = useState(null);
   const [objetivos, setObjetivos] = useState([]);
   const [cursos, setCursos] = useState([]);
+  const [openai, setOpenai] = useState("");
+
+  // Función para obtener clave de openai
+  const obtenerOpenai = async () => {
+    try {
+      const openaiColRef = collection(firestore, "Openai");
+      const snapshot = await getDocs(openaiColRef);
+      const openaiTemp = [];
+
+      for (const doc of snapshot.docs) {
+        const data = doc.data();
+        const subcolecciones = {};
+
+        openaiTemp.push({id: doc.id, ...data, subcolecciones });
+      }
+      setOpenai(openaiTemp);
+    } catch (error) {
+      console.log("Error al obtener clave de openai:". error);
+    }
+  };
 
   
   // Función para obtener objetivos de aprendizaje
@@ -80,6 +100,7 @@ export function UserContextProvider(props) {
   };
 
   useEffect(() => {
+    obtenerOpenai();
     obtenerObjetivos(); // Obtener objetivos al iniciar el contexto
     const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
       if (firebaseUser) {
@@ -104,6 +125,7 @@ export function UserContextProvider(props) {
         user,
         objetivos,
         cursos,
+        openai,
         login,
         logout,
         updateUser,

@@ -20,8 +20,8 @@ function Home() {
         <InfoTime />
         <div className="w-full grid grid-cols-1 space-y-2 place-content-center">
           <img className="mx-auto w-[340px] h-[340px] object-cover" src={profesor} />
-          <div className="mx-auto w-[120px] h-[45px]">
-            <ButtonS title="Entrenar" to={"/estudiante/ejercicio/"} />
+          <div className="mx-auto w-full h-[55px]">
+            <ButtonS title="Entrenar" to={"/estudiante/ejercicio/"} text="text-xl"/>
           </div>
         </div>
       </div>

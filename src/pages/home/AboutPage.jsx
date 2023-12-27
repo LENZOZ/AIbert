@@ -1,8 +1,8 @@
 import Navbar from "../../components/Navbar";
 import CardCircle from "../../components/CardCircle";
 import perfil1 from '../../assets/perfil1.jpg'
-import perfil2 from '../../assets/perfil2.png'
-import perfil3 from '../../assets/perfil3.jpg'
+import perfil2 from '../../assets/perfil2.jpeg'
+import perfil3 from '../../assets/perfil3.jpeg'
 
 function AboutPage() {
   return (
@@ -14,7 +14,7 @@ function AboutPage() {
             <h1 className="font-poppins text-4xl font-bold text-center text-white pb-5">
               Conoce al Equipo
             </h1>
-            <p className="text-white">
+            <p className="font-poppins text-white">
               ¡El equipo de desarrollo de Aibert es el motor que impulsa la
               innovación y la excelencia en el ámbito de la inteligencia
               artificial y la programación educativa! Compuesto por mentes

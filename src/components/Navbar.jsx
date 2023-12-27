@@ -39,7 +39,7 @@ function Navbar() {
           <li>
             <NavLink
               to="/info"
-              className="font-poppins lg:pl-10 font-bold min-w-[200px]"
+              className="font-poppins lg:pl-10 font-bold min-w-[200px] hover:text-cyan-500"
             >
               ¿Porque Aibert?
             </NavLink>
@@ -47,7 +47,7 @@ function Navbar() {
           <li>
             <NavLink
               to="/price"
-              className="font-poppins lg:pl-10 font-bold min-w-[200px]"
+              className="font-poppins lg:pl-10 font-bold min-w-[200px] hover:text-cyan-500"
             >
               Precios
             </NavLink>
@@ -55,7 +55,7 @@ function Navbar() {
           <li>
             <NavLink
               to="/about"
-              className="font-poppins lg:pl-10 font-bold min-w-[200px]"
+              className="font-poppins lg:pl-10 font-bold min-w-[200px] hover:text-cyan-500"
             >
               Acerca de Nosotros
             </NavLink>

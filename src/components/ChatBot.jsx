@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import {
   MainContainer,
@@ -9,10 +11,12 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 
-const API_KEY = "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";
+
 
 function ChatBot() {
   const [typing, setTyping] = useState(false);
+  const { openai } = useContext(UserContext);
+  const API_KEY = openai[1].api_key;
   const [messages, setMessages] = useState([
     {
       message: "Hola! Soy ChatBot, estoy aqui para ayudar!",
@@ -53,7 +57,7 @@ function ChatBot() {
 
     const systemMessage = {
       role: "system",
-      content: "Habla como un profesor de matemáticas para alumnos de 15 años",
+      content: "Habla como un profesor de matemáticas para alumnos de 15 años, solo textos de maximo 200 palabras",
     };
 
     const apiRequestBody = {
