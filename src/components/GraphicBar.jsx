@@ -1,49 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
+import { firestore } from './firebaseConfig'; 
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 
-const GraphicBar = ({title, data}) => {
-  const option = {
-    title: {
-      text: 'Progreso'
-    },
-    tooltip: {},
-    legend: {
-      data: ['Diagnostico','Nivel Actual']
-    },
-    radar: {
-      // shape: 'circle',
-      indicator: [
-          { name: 'Objetivo de aprendizaje 1', max: 100},
-          { name: 'Objetivo de aprendizaje 2', max: 100},
-          { name: 'Objetivo de aprendizaje 3', max: 100},
-          { name: 'Objetivo de aprendizaje 4', max: 100},
-          { name: 'Objetivo de aprendizaje 5', max: 100},
-          { name: 'Objetivo de aprendizaje 6', max: 100},
-          { name: 'Objetivo de aprendizaje 7', max: 100},
-          { name: 'Objetivo de aprendizaje 8', max: 100}
-      ]
-    },
-    series: [{
-      name: 'Comparador de avance',
-      type: 'radar',
-      // areaStyle: {normal: {}},
-      data : [
-        {
-          value : [60, 80, 50, 40, 25, 40, 10, 20],
-          name : 'Diagnostico'
-        },{
-          value : [70, 100, 80, 50, 45, 90, 20, 90],
-          name : 'Nivel Actual'
-        }
-      ]
-    }]
-  };
-
-  let timer;
+const GraphicBar = ({ uid }) => {
+  const [option, setOption] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    return () => clearTimeout(timer);
-  });
+    const fetchProgressData = async () => {
+      if (!uid) return;
+
+      try {
+        // Consultar los objetivos de aprendizaje
+        const progresoRef = collection(firestore, `Usuarios/${uid}/Progreso`);
+        const progresoSnap = await getDocs(progresoRef);
+        const objetivos = progresoSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        // Construir indicadores para la gráfica
+        const indicators = objetivos.map(obj => ({ name: obj.nombre, max: 100 }));
+
+        // Consultar datos de diagnóstico
+        const diagnosticos = await Promise.all(
+          objetivos.map(async obj => {
+            const diagRef = doc(firestore, `Usuarios/${uid}/Diagnostico/${obj.id}`);
+            const diagSnap = await getDoc(diagRef);
+            return diagSnap.exists() ? Math.round(diagSnap.data().resultado) : 0;
+          })
+        );
+
+        // Consultar datos de nivel actual
+        const nivelesActuales = await Promise.all(
+          objetivos.map(async obj => {
+            const indicadoresRef = collection(firestore, `Usuarios/${uid}/Progreso/${obj.id}/Indicadores`);
+            const indicadoresSnap = await getDocs(indicadoresRef);
+            const indicadores = indicadoresSnap.docs.map(doc => doc.data());
+
+            // Calcular el promedio de avance para cada objetivo
+            const total = indicadores.reduce((acc, ind) => acc + (ind.total_aciertos / ind.total_intentos * 100), 0);
+            return indicadores.length ? Math.round(total / indicadores.length) : 0;
+          })
+        );
+
+        // Construir opciones para la gráfica
+        const newOption = {
+          title: { text: 'Progreso' },
+          tooltip: {},
+          legend: { data: ['Diagnostico', 'Nivel Actual'] },
+          radar: { indicator: indicators },
+          series: [{
+            name: 'Comparador de avance',
+            type: 'radar',
+            data: [
+              { value: diagnosticos, name: 'Diagnostico' },
+              { value: nivelesActuales, name: 'Nivel Actual' }
+            ]
+          }]
+        };
+
+        setOption(newOption);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error al obtener datos de progreso:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchProgressData();
+  }, [uid]);
 
   const loadingOption = {
     text: 'Cargando...',
@@ -54,9 +78,9 @@ const GraphicBar = ({title, data}) => {
   };
 
   function onChartReady(echarts) {
-    timer = setTimeout(function() {
+    if (!isLoading) {
       echarts.hideLoading();
-    }, 1000);
+    }
   }
 
   return <ReactECharts
@@ -64,7 +88,7 @@ const GraphicBar = ({title, data}) => {
     style={{ height: 400 }}
     onChartReady={onChartReady}
     loadingOption={loadingOption}
-    showLoading={true}
+    showLoading={isLoading}
   />;
 };
 

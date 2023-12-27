@@ -9,6 +9,7 @@ import { UserContext } from "../../context/UserContext";
 
 function Progreso() {
   const { objetivos } = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   return (
     <div className="flex bg-fondo">
@@ -16,7 +17,7 @@ function Progreso() {
       <div className="w-full h-full p-2 space-y-2">
         <BarText title="Matematicas" />
         <div className="bg-white rounded-lg p-2">
-          <GraphicBar />
+        <GraphicBar uid={user?.uid} />
         </div>
         {objetivos.map((objetivo, i) => {
           return (

@@ -78,7 +78,9 @@ function validateRut(rut) {
           rut,
           correo,
           rol: 'estudiante',
-          uid
+          uid,
+          diagnostico:false,
+          establecimientoID: '',
         };
   
         await setDoc(doc(firestore, 'Usuarios', uid), userData);
@@ -91,7 +93,11 @@ function validateRut(rut) {
 
     for (const objetivoDoc of objetivosSnap.docs) {
       const nombreObjetivo = objetivoDoc.data().nombre;
-      await setDoc(doc(firestore, `Usuarios/${uid}/Progreso`, objetivoDoc.id), { nombre: nombreObjetivo });
+       // Crear documento en Progreso
+       await setDoc(doc(firestore, `Usuarios/${uid}/Progreso`, objetivoDoc.id), { nombre: nombreObjetivo });
+        
+       // Crear documento en Diagnostico
+       await setDoc(doc(firestore, `Usuarios/${uid}/Diagnostico`, objetivoDoc.id), { resultado: 0 });
 
       const indicadoresSnap = await getDocs(collection(firestore, `ObjetivoAprendizaje/${objetivoDoc.id}/Indicadores`));
 

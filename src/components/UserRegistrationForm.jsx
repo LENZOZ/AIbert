@@ -66,6 +66,7 @@ const UserRegistrationForm = ({ userInfo }) => {
       correo: userInfo.email,
       uid: userInfo.uid,
       rol: 'estudiante', //Se establece como estudiante
+      diagnostico:false,
     };
 
     try {
@@ -84,6 +85,9 @@ const UserRegistrationForm = ({ userInfo }) => {
 
       // Crear documento en Progreso para cada ObjetivoAprendizaje
       await setDoc(doc(firestore, `Usuarios/${userInfo.uid}/Progreso`, objetivoDoc.id), { nombre: nombreObjetivo });
+
+      // Crear documento en Diagnostico
+      await setDoc(doc(firestore, `Usuarios/${userInfo.uid}/Diagnostico`, objetivoDoc.id), { resultado: 0 });
 
       const indicadoresSnap = await getDocs(collection(firestore, `ObjetivoAprendizaje/${objetivoDoc.id}/Indicadores`));
       
