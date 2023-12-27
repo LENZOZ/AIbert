@@ -6,7 +6,7 @@ function Secciones({ title, description, img, id }) {
       {/*<SeccionBar title={title} description={description} to={"/estudiante/progreso/" + id} />*/}
       <SeccionBar title={title} description={description} />
       <img
-        className="w-full object-contain sm:h-[350px] rounded-2xl hover:shadow-hover"
+        className="w-full object-cover sm:h-[350px] rounded-2xl hover:shadow-hover"
         src={img}
       />
     </div>
