@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, collection, getDocs } from 'firebase/firestore';
 import { firestore } from './firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext'; // Importa UserContext
@@ -75,6 +75,29 @@ const UserRegistrationForm = ({ userInfo }) => {
 
       // Actualiza el estado del usuario en UserContext
       updateUser(fullUserData);
+
+     // Obtener los objetivos de aprendizaje y sus indicadores
+    const objetivosSnap = await getDocs(collection(firestore, "ObjetivoAprendizaje"));
+    
+    for (const objetivoDoc of objetivosSnap.docs) {
+      const nombreObjetivo = objetivoDoc.data().nombre;
+
+      // Crear documento en Progreso para cada ObjetivoAprendizaje
+      await setDoc(doc(firestore, `Usuarios/${userInfo.uid}/Progreso`, objetivoDoc.id), { nombre: nombreObjetivo });
+
+      const indicadoresSnap = await getDocs(collection(firestore, `ObjetivoAprendizaje/${objetivoDoc.id}/Indicadores`));
+      
+      for (const indicadorDoc of indicadoresSnap.docs) {
+        const indicadorData = {
+          fallos_consecutivos: 0,
+          total_aciertos: 0,
+          total_intentos: 0
+        };
+
+        // Crear documento en la subcolección Indicadores de Progreso
+        await setDoc(doc(firestore, `Usuarios/${userInfo.uid}/Progreso/${objetivoDoc.id}/Indicadores`, indicadorDoc.id), indicadorData);
+      }
+    }
 
       //redirige a home estudiante
       navigate('/estudiante/home');

@@ -10,6 +10,7 @@ import {UserContext} from '../../context/UserContext'
 function Home() {
 
   const {user} = useContext(UserContext);
+  console.log("Usuario:", user);
 
   return (
     <div className="flex bg-fondo">

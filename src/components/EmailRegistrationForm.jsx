@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, firestore } from './firebaseConfig';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, collection, getDocs } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext'; // Importa UserContext
 
@@ -85,6 +85,27 @@ function validateRut(rut) {
 
         // Actualizar el UserContext con la información del usuario
         updateUser(userData);
+
+        // Obtener los objetivos de aprendizaje y sus indicadores
+    const objetivosSnap = await getDocs(collection(firestore, "ObjetivoAprendizaje"));
+
+    for (const objetivoDoc of objetivosSnap.docs) {
+      const nombreObjetivo = objetivoDoc.data().nombre;
+      await setDoc(doc(firestore, `Usuarios/${uid}/Progreso`, objetivoDoc.id), { nombre: nombreObjetivo });
+
+      const indicadoresSnap = await getDocs(collection(firestore, `ObjetivoAprendizaje/${objetivoDoc.id}/Indicadores`));
+
+      for (const indicadorDoc of indicadoresSnap.docs) {
+        const progresoData = {
+          nombre: indicadorDoc.data().nombre,
+          fallos_consecutivos: 0,
+          total_aciertos: 0,
+          total_intentos: 0
+        };
+
+        await setDoc(doc(firestore, `Usuarios/${uid}/Progreso/${objetivoDoc.id}/Indicadores`, indicadorDoc.id), progresoData);
+      }
+    }
   
         navigate('/estudiante/home');
       } catch (error) {
