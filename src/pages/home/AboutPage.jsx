@@ -1,6 +1,6 @@
 import Navbar from "../../components/Navbar";
 import CardCircle from "../../components/CardCircle";
-import perfil1 from '../../assets/perfil1.jpg'
+import perfil4 from '../../assets/perfil4.jpg'
 import perfil2 from '../../assets/perfil2.jpeg'
 import perfil3 from '../../assets/perfil3.jpeg'
 
@@ -25,7 +25,7 @@ function AboutPage() {
             <CardCircle 
             title="Cristopher Mujica" 
             description="Desarrollador Frontend"
-            img={perfil1}
+            img={perfil4}
             to="https://www.instagram.com/puxe_vlm/?utm_source=ig_web_button_share_sheet&igshid=OGQ5ZDc2ODk2ZA=="
             target="_blank"
             />

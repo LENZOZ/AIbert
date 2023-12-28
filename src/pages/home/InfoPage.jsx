@@ -7,7 +7,7 @@ function InfoPage() {
       <div className="flex align-top h-screen bg-[url('./assets/pattern.png')]">
         <div className="mt-24 mx-auto">
           <div className="container lg:flex md:flex sm:block items-center bg-gradient-to-t from-sky-500 to-indigo-500 w-[80vw]  px-5 py-8 lg:py-14 md:py-14 rounded-lg text-white">
-            <div className="lg,md,xl:w-[45%] w-[100%]  p-8">
+            <div className="lg,md,xl:w-[45%] w-[100%]">
               <h1 className="font-poppins text-4xl font-bold text-center">
                 ¡Bienvenido al fascinante mundo de la ejercitación matemática
                 personalizada con Aibert!
